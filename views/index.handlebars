@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registration</title>
+	<link rel="stylesheet" href="/css/registration_number.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<div>
+			{{!-- <img src="/css/reg-bgimage.png" alt="" srcset=""> --}}
+			<h2 style="content: center;">REGISTRATION NUMBERS WEBPAGE</h2>
+			{{!-- <h3>Enter registration numbers in the following format: <br> 'CA 123-45' <br> 'CY 125 256' <br> 'CAA
+				125256'</h3> --}}
+			<div>
+				{{#if messages.info}}
+				<div class="entry">
+					<p class="message" id="infoMessage"> {{messages.info}}</p>
+
+				</div>
+				<script
+					type="text/javascript">window.setTimeout("document.getElementById('infoMessage').style.display='none';", 3000); </script>
+				{{/if}}
+			</div>
+			<form action="/registr" method="POST">
+				<input type="text" name="setReg" class="regNumberEntered" placeholder="enter a registration number">
+				<button class="addRegNumber btn blue" type="submit">Add</button>
+			</form>
+
+			<div class="message">
+
+				{{#if messages.success}}
+				<div class="entry">
+					<p class="success_message" id="successMessage"> {{messages.success}}</p>
+
+				</div>
+				<script
+					type="text/javascript">window.setTimeout("document.getElementById('successMessage').style.display='none';", 3000); </script>
+				{{/if}}
+			</div>
+			<br>
+			<form action="/filter" method="POST">
+
+				<strong>Select City/Town</strong>
+				<input type="radio" name="town" value="">Show all <br>
+				<input type="radio" name="town" value="CY">Bellville <br>
+				<input type="radio" name="town" value="CJ">Paarl <br>
+				<input type="radio" name="town" value="CA"> Cape Town <br>
+
+				<button class="filter btn" type="submit">Show</button>
+			</form>
+		</div>
+		<hr>
+		<div class="regNumbers">
+
+			<div class="regNumber">
+
+				{{#each reg_number}}
+				<li>{{registration_num}}</li>
+
+				{{/each}}
+
+			</div>
+		</div>
+
+		{{#if messages.error}}
+		<div class="entry">
+			<p class="success_message" id="errorMessage"> {{messages.error}}</p>
+
+		</div>
+		<script
+			type="text/javascript">window.setTimeout("document.getElementById('errorMessage').style.display='none';", 3000); </script>
+		{{/if}}
+	</div>
+
+	<div class="reset btn"><a href="/reset" name="reset">Reset</a></div>
+
+
+</body>
+
+</html>
