@@ -8,60 +8,59 @@ const connectionString = process.env.DATABASE_URL || 'postgresql://tester:test12
 const db = pgp(connectionString)
 
 
-describe('The basic database web app', function () {
+describe('database', function () {
 
-
-    it('should insert registration numbers into the db test', async function () {
-
-
-        let registration = Registration(db);
-        let reg = await registration.addReg(
-            'CA 152-563'
-        );
-
-        let reg2 = await registration.addReg(
-            'CA 152-123'
-        );
-        let getReg = await registration.displayReg()
-        assert.deepEqual([{registration_num: "CA 152-123"}, {registration_num: 'CA 152-563'}], getReg);
-        
-
-    });
-    it('should get filter registration numbers from Bellville the db test', async function () {
-
-
-        let registration = Registration(db);
-        let reg = await registration.filterReg('CY');
-
-
-        assert.equal("CY 254-562", "CY 254-562", reg);
-
-    });
-
-    it('should get filter registration numbers from Paarl the db test', async function () {
+   
+    it('Show reg numbers from Durban', async function () {
 
 
         let registration = Registration(db);
         let reg = await registration.filterReg('CJ');
 
 
-        assert.equal("CJ 254-562", "CJ 254-562", reg);
+        assert.equal('ND 154-876', 'ND 154-876', reg);
 
     });
 
-    it('should get filter registration numbers from Cape Town the db test', async function () {
+    it('Show reg numbers from Pine Town', async function () {
 
 
         let registration = Registration(db);
-        let reg = await registration.filterReg('CA');
+        let reg = await registration.filterReg('NU');
 
 
-        assert.equal("CA 254-562", "CA 254-562", reg);
+        assert.equal("NU 154-876", "NU 154-876", reg);
 
     });
 
+    it('should get filter reg numbers from Bellville', async function () {
+
+
+        let registration = Registration(db);
+        let reg = await registration.filterReg('CY');
+
+
+        assert.equal("CY 154-876", "CY 154-876", reg);
+
+    });
+
+
+    it('must be able to insert reg numbers to database', async function () {
+
+        let registration = Registration(db);
+        let reg = await registration.addReg(
+            'ND 154-876'
+        );
+        let reg2 = await registration.addReg(
+            'NU 234-123'
+        );
+        let getReg = await registration.displayReg()
+        assert.deepEqual([{registration_num: "ND 154-876"}, {registration_num: 'NU 234-123'}], getReg);
+        
+
+    });
     
-    it('should clear the list of registration numbers in the db test and bring back a success message', async function () {
+    it('Should Delete reg numbers ', async function () {
 
 
         let registration = Registration(db);
@@ -71,7 +70,6 @@ describe('The basic database web app', function () {
         assert.equal(undefined, getReg);
     });
     afterEach('Drop all tables', async function () {
-        //clean the tables after each test run
         await db.query("delete from Registration;");
 
     });

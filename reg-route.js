@@ -1,7 +1,5 @@
 module.exports = function RegRoutes(reg, regFunction){
 
-    // module.exports = function regFunction()
-
     async function addRegNum(req, res){
        
     let result =   await reg.addReg(req.body.setReg)
@@ -13,13 +11,13 @@ module.exports = function RegRoutes(reg, regFunction){
             req.flash('info', "You have already added the registration number" )
         }
          if (regNo == "" )  {
-           await sendErrorMsg(req.body.setReg)
-            req.flash('info',await errorMsg()) 
+           await regFunction.sendErrorMsg(req.body.setReg)
+            req.flash('info',await regFunction.errorMsg()) 
             
          } 
         else if (!regex.test(regNo))  {
-             await sendErrorMsg(req.body.setReg)
-            req.flash('info', await errorMsg()) 
+             await regFunction.sendErrorMsg(req.body.setReg)
+            req.flash('info', await regFunction.errorMsg()) 
          } 
         
 
@@ -37,7 +35,6 @@ module.exports = function RegRoutes(reg, regFunction){
         res.render('index',{
             
             reg_number: await reg.displayReg()
-            // error: await reg.errorMsg()
 
         })
        
@@ -58,37 +55,11 @@ module.exports = function RegRoutes(reg, regFunction){
                 
             })
     }
-
-    async function duplicateReg(){
-        
-    }
-
-    let errMsg;
-    async function sendErrorMsg(regNum){
-        let regex =  /[A-Z]{1,3}\s{1}\d{3}(|\s|\S|-)\d{3}/;
-    
-         if(regex.test(regNum) == false){
-            errMsg = "Please enter the correct format of registration number"
-        }
-        if(regNum == ''){
-            errMsg = "Please add registration number"
-        }
-       
-    }
-
-    async function errorMsg(){
-        return errMsg;
-    }
-
-
     
     return{
         addRegNum,
         showReg,
         deleteAll,
-        filterReg,
-        sendErrorMsg,
-        duplicateReg,
-        errorMsg
+        filterReg
     }
 }

@@ -5,7 +5,7 @@ const flash = require('express-flash');
 const session = require('express-session');
 const Registration = require('./registration');
 const RegRoutes = require('./reg-route');
-// const RegFunction = require('./reg-mesages')
+const RegFunction = require('./reg-mesages')
 
 const pgPromise = require("pg-promise")
 const pgp = pgPromise({})
@@ -28,8 +28,8 @@ const db = pgp({
 });
 
 const registration = Registration(db)
-// const regFunction = RegFunction()
-const registrationRoutes = RegRoutes(registration)
+const regFunction = RegFunction()
+const registrationRoutes = RegRoutes(registration, regFunction)
 
 const app = express();
 

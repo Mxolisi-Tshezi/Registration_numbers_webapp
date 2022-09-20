@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Registration</title>
+	<title>Reg numbers</title>
 	<link rel="stylesheet" href="/css/registration_number.css">
 </head>
 
@@ -13,10 +13,8 @@
 
 	<div class="container">
 		<div>
-			{{!-- <img src="/css/reg-bgimage.png" alt="" srcset=""> --}}
 			<h2 style="content: center;">REGISTRATION NUMBERS WEBPAGE</h2>
-			{{!-- <h3>Enter registration numbers in the following format: <br> 'CA 123-45' <br> 'CY 125 256' <br> 'CAA
-				125256'</h3> --}}
+			<h4>Format Example: <br> <br> ND 154-876 For Durban <br> NU 154-876 For Pine Town <br> CY 154-876 For Bellville</h4>
 			<div>
 				{{#if messages.info}}
 				<div class="entry">
@@ -28,7 +26,7 @@
 				{{/if}}
 			</div>
 			<form action="/registr" method="POST">
-				<input type="text" name="setReg" class="regNumberEntered" placeholder="enter a registration number">
+				<input type="text" name="setReg" class="regNumberEntered" placeholder="Registration Number Here">
 				<button class="addRegNumber btn blue" type="submit">Add</button>
 			</form>
 
@@ -47,10 +45,13 @@
 			<form action="/filter" method="POST">
 
 				<strong>Select City/Town</strong>
-				<input type="radio" name="town" value="">Show all <br>
-				<input type="radio" name="town" value="CY">Bellville <br>
-				<input type="radio" name="town" value="CJ">Paarl <br>
-				<input type="radio" name="town" value="CA"> Cape Town <br>
+				<br>
+				
+				<input type="radio" name="town" value="">Show all 
+				<input type="radio" name="town" value="ND"> Durban 
+				<input type="radio" name="town" value="NU"> Pine Town 
+				<input type="radio" name="town" value="CY"> Bellville 
+				<br>
 
 				<button class="filter btn" type="submit">Show</button>
 			</form>
