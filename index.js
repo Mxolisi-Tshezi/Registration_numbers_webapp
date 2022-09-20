@@ -3,9 +3,9 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const flash = require('express-flash');
 const session = require('express-session');
-const Registration = require('./registration');
-const RegRoutes = require('./reg-route');
-const RegFunction = require('./reg-mesages')
+const Registration = require('./Database_Reg');
+const RegRoutes = require('./routes');
+const RegFunction = require('./Errors')
 
 const pgPromise = require("pg-promise")
 const pgp = pgPromise({})
@@ -16,8 +16,6 @@ let local = process.env.LOCAL || false;
 if (process.env.DATABASE_URL && !local) {
     useSSL = true;
 }
-
-// which db connection to use
 const connectionString = process.env.DATABASE_URL || 'postgresql://tester:test123@localhost:5432/test';
 
 const db = pgp({
@@ -34,15 +32,13 @@ const registrationRoutes = RegRoutes(registration, regFunction)
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
-
-//parse application/json
- app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 app.use(session({
-    secret: "my greet secret",
+    secret: "secret message",
     cookie: {
         maxAge: 1000 * 36000
-      },
+    },
     resave: false,
     saveUninitialized: true
 }));
@@ -58,10 +54,7 @@ app.post('/registr', registrationRoutes.addRegNum);
 app.get('/reset', registrationRoutes.deleteAll);
 app.get('/show', registrationRoutes.showReg);
 app.get('/', registrationRoutes.showReg);
-// app.get('/reg_number/:reg_number', registrationRoutes.showReg);
 app.post('/filter', registrationRoutes.filterReg);
-
-
 
 const PORT = process.env.PORT || 4099
 

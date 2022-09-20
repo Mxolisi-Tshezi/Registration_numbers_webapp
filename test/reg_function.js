@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Registration = require('../reg-mesages');
+const Registration = require('../Errors');
 
 // describe('Error messages', function () {
 

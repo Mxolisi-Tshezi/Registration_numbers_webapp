@@ -1,5 +1,5 @@
 const assert = require('assert');
-const Registration = require('../registration')
+const Registration = require('../Database_Reg')
 const pgPromise = require("pg-promise");
 const pgp = pgPromise({})
 
