@@ -33,7 +33,7 @@ describe('database', function () {
 
     });
 
-    it('Show reg numbers from Bellville', async function () {
+    it(' reg numbers from Bellville', async function () {
 
 
         let registration = Registration(db);
