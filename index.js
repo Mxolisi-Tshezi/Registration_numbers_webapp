@@ -11,19 +11,38 @@ const pgPromise = require("pg-promise")
 const pgp = pgPromise({})
 
 // SSL connection
-let useSSL = false;
-let local = process.env.LOCAL || false;
-if (process.env.DATABASE_URL && !local) {
-    useSSL = true;
-}
-const connectionString = process.env.DATABASE_URL || 'postgresql://tester:test123@localhost:5432/test';
+// let useSSL = false;
+// let local = process.env.LOCAL || false;
+// if (process.env.DATABASE_URL && !local) {
+//     useSSL = true;
+// }
+// const connectionString = process.env.DATABASE_URL || 'postgresql://tester:test123@localhost:5432/test';
 
-const db = pgp({
-    connectionString,
-    // ssl: {
-    //     rejectUnauthorized: false
-    // }
-});
+// const db = pgp({
+//     connectionString,
+//     ssl: {
+//         rejectUnauthorized: false
+//     }
+// });
+
+const local_database_url = 'postgresql://tester:test123@localhost:5432/test';
+const connectionString = process.env.DATABASE_URL || local_database_url;
+
+const config ={
+  connectionString 
+}
+
+if(process.env.NODE_ENV == "production"){
+  config.ssl = {
+      rejectUnauthorized: false
+  }
+}
+const db = pgp(config);
+
+
+
+
+
 
 const registration = Registration(db)
 const regFunction = RegFunction()
