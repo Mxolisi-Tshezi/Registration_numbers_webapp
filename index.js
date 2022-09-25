@@ -6,7 +6,6 @@ const session = require('express-session');
 const Registration = require('./Database_Reg');
 const RegRoutes = require('./routes');
 const RegFunction = require('./Errors')
-
 const pgPromise = require("pg-promise")
 const pgp = pgPromise({})
 
@@ -38,9 +37,6 @@ if(process.env.NODE_ENV == "production"){
   }
 }
 const db = pgp(config);
-
-
-
 
 
 
